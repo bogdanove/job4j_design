@@ -3,7 +3,6 @@ package ru.job4j.generics;
 import ru.job4j.model.Animal;
 import ru.job4j.model.Predator;
 import ru.job4j.model.Tiger;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
