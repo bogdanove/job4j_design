@@ -1,4 +1,4 @@
-package ru.job4j.generics;
+package ru.job4j.generic;
 
 import ru.job4j.model.Animal;
 import ru.job4j.model.Predator;
