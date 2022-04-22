@@ -44,7 +44,11 @@ public class SimpleLinkedList<E> implements List<E> {
     @Override
     public E get(int index) {
         Objects.checkIndex(index, size);
-        return null;
+        Node<E> current = first;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        return current.item;
     }
 
     @Override
@@ -52,13 +56,15 @@ public class SimpleLinkedList<E> implements List<E> {
         return new Iterator<E>() {
             private int expectedModCount = modCount;
             private int index;
+            Node<E> current;
+            Node<E> next = first;
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return false;
+                return index < size;
             }
 
             @Override
@@ -66,7 +72,10 @@ public class SimpleLinkedList<E> implements List<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                return null;
+                current = next;
+                next = current.next;
+                index++;
+                return current.item;
             }
         };
     }
