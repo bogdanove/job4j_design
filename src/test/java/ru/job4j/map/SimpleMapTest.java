@@ -6,10 +6,14 @@ import org.junit.Test;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.NoSuchElementException;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
 
 public class SimpleMapTest {
 
-    Map<User, Integer> map;
+    Map<Integer, User> map;
     Calendar bd;
     User userOne;
     User userTwo;
@@ -22,39 +26,40 @@ public class SimpleMapTest {
         userOne = new User("Sergey", 0, bd);
         userTwo = new User("Ivan", 1, bd);
         userThree = new User("Evgeniy", 2, bd);
-        map.put(userOne, 0);
-        map.put(userTwo, 1);
-        map.put(userThree, 2);
+        map.put(0, userOne);
+        map.put(1, userTwo);
+        map.put(2, userThree);
     }
 
 
     @Test
     public void whenAddUserAndFound() {
-        Assert.assertEquals(Integer.valueOf(0), map.get(userOne));
+        Assert.assertEquals(userOne, map.get(0));
     }
 
     @Test
     public void whenAddUserAndNotFound() {
-        Assert.assertNull(map.get(new User("Igor", 3, bd)));
+        Assert.assertNull(map.get(3));
     }
 
     @Test
     public void whenRemoveUserAndReturnTrue() {
-        Assert.assertTrue(map.remove(userTwo));
+        Assert.assertTrue(map.remove(1));
     }
 
     @Test
     public void whenRemoveUserAndReturnFalse() {
-        Assert.assertFalse(map.remove(new User("Igor", 3, bd)));
+        Assert.assertFalse(map.remove(3));
     }
 
     @Test
     public void whenIteratorNext() {
-        Assert.assertEquals(userOne, map.iterator().next());
+        Assert.assertEquals(Integer.valueOf(0), map.iterator().next());
     }
 
     @Test
     public void whenIteratorHasNext() {
         Assert.assertTrue(map.iterator().hasNext());
+        assertThat(map.iterator().next(), is(0));
     }
 }

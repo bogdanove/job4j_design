@@ -1,6 +1,5 @@
 package ru.job4j.map;
 
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -19,7 +18,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
 
     @Override
     public boolean put(K key, V value) {
-        if (count == capacity * LOAD_FACTOR) {
+        if (count >= capacity * LOAD_FACTOR) {
             expand();
             modCount++;
         }
@@ -46,7 +45,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     private void expand() {
         capacity = capacity * 2;
         MapEntry<K, V>[] temp = new MapEntry[capacity];
-        for (MapEntry<K, V> m: table) {
+        for (MapEntry<K, V> m : table) {
             if (m != null) {
                 int index = indexFor(hash(m.key.hashCode()));
                 temp[index] = m;
@@ -58,14 +57,14 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public V get(K key) {
         int index = indexFor(hash(key.hashCode()));
-        return table[index] != null ? table[index].value : null;
+        return table[index] != null && table[index].key.equals(key) ? table[index].value : null;
     }
 
     @Override
     public boolean remove(K key) {
         boolean result = false;
         int index = indexFor(hash(key.hashCode()));
-        if (table[index] != null) {
+        if (table[index] != null && table[index].key.equals(key)) {
             table[index] = null;
             result = true;
             count--;
@@ -85,7 +84,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return index < count;
+                while (index < capacity && table[index] == null) {
+                    index++;
+                }
+                return index < capacity;
             }
 
             @Override
