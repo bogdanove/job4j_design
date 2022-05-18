@@ -14,22 +14,9 @@ public class SimpleTree<E> implements Tree<E> {
         boolean rsl = findBy(parent).isPresent() && findBy(child).isEmpty();
         if (rsl) {
             Node<E> el = new Node<>(child);
-            if (!root.value.equals(parent)) {
-                routeTree(root, parent, el);
-            } else {
-                root.children.add(el);
-            }
+            findBy(parent).get().children.add(el);
         }
         return rsl;
-    }
-    private void routeTree(Node<E> startNode, E key, Node<E> el) {
-        for (Node<E> node : startNode.children) {
-            if (node.value.equals(key)) {
-                node.children.add(el);
-                break;
-            }
-            routeTree(node, key, el);
-        }
     }
 
     @Override
