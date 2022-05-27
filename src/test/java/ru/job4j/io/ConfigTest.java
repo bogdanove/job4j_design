@@ -25,8 +25,15 @@ public class ConfigTest {
         assertThat(config.value("key"), is("value=1"));
     }
     @Test(expected = IllegalArgumentException.class)
-    public void whenPairWithEmptyKeyComment() {
+    public void whenPairWithEmptyKey() {
         String path = "./data/pair_with_empty_key.properties";
+        Config config = new Config(path);
+        config.load();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenPairWithEmptyValue() {
+        String path = "./data/pair_with_empty_value.properties";
         Config config = new Config(path);
         config.load();
     }

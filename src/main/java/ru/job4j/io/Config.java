@@ -19,8 +19,8 @@ public class Config {
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines().filter(l -> !l.startsWith("#") && l.contains("=")).filter(x -> {
-                if (x.substring(0, x.indexOf("=")).length() == 0 || x.substring(x.indexOf("=") + 1).length() == 0) {
-                    throw new IllegalArgumentException();
+                if (x.substring(0, x.indexOf("=")).isEmpty() || x.substring(x.indexOf("=") + 1).isEmpty()) {
+                    throw new IllegalArgumentException("Configuration is incorrect!");
                 }
                 return true;
             }).forEach(line ->
@@ -49,5 +49,4 @@ public class Config {
     public static void main(String[] args) {
         System.out.println(new Config("app.properties"));
     }
-
 }
