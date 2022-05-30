@@ -6,10 +6,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Analizy {
 
-    public void unavailable(String source, String target) {
+    public static void unavailable(String source, String target) {
         try (BufferedReader read = new BufferedReader(new FileReader(source));
              PrintWriter out = new PrintWriter(new FileOutputStream(target))) {
-            StringJoiner info = new StringJoiner(";", "SERVER DOWN INFO", ";");
+            StringJoiner info = new StringJoiner(";", "SERVER DOWN INFO:", ";");
             AtomicBoolean status = new AtomicBoolean(true);
             read.lines().forEach(line -> {
                         if ((line.substring(0, line.indexOf(" ")).equals("500") || line.substring(0, line.indexOf(" ")).equals("400")) && status.get()) {
