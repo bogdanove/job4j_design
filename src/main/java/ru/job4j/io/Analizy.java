@@ -12,11 +12,11 @@ public class Analizy {
             StringJoiner info = new StringJoiner(";", "SERVER DOWN INFO:", ";");
             AtomicBoolean status = new AtomicBoolean(true);
             read.lines().forEach(line -> {
-                        if ((line.substring(0, line.indexOf(" ")).equals("500") || line.substring(0, line.indexOf(" ")).equals("400")) && status.get()) {
+                        if (("500".equals(line.substring(0, line.indexOf(" "))) || "400".equals(line.substring(0, line.indexOf(" ")))) && status.get()) {
                             status.set(false);
                             info.add(System.lineSeparator() + line.substring(line.indexOf(" ") + 1));
                         }
-                        if (!status.get() && (line.substring(0, line.indexOf(" ")).equals("200") || line.substring(0, line.indexOf(" ")).equals("300"))) {
+                        if (!status.get() && ("200".equals(line.substring(0, line.indexOf(" "))) || "300".equals(line.substring(0, line.indexOf(" "))))) {
                             info.add(line.substring(line.indexOf(" ") + 1));
                             status.set(true);
                         }
