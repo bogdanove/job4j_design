@@ -20,6 +20,6 @@ public class Search {
         return searcher.getPaths();
     }
     private static boolean validateArgs(String[] args) {
-        return args.length != 0;
+        return args.length != 0 && args[0].startsWith(".") && args[1].startsWith(".");
     }
 }
