@@ -14,6 +14,7 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
     Set<FileProperty> files = new HashSet<>();
 
+
     List<Path> duplicates = new ArrayList<>();
 
     @Override
