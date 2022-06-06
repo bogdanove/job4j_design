@@ -1,7 +1,5 @@
 package ru.job4j.io;
 
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,18 +15,27 @@ public class ArgsName {
         return value;
     }
 
-    private void parse(String[] args) throws IllegalArgumentException {
+    private boolean validate(String[] args) throws IllegalArgumentException {
+        boolean result = true;
         if (args.length == 0) {
-            throw new IllegalArgumentException();
+            result = false;
+            throw new IllegalArgumentException("Array is empty");
         }
-        Arrays.stream(args).filter(x -> {
+        for (String x : args) {
             if (!x.contains("=") || !x.startsWith("-") || x.substring(1, x.indexOf("=")).length() == 0 || x.substring(x.indexOf("=") + 1).length() == 0) {
-                throw new IllegalArgumentException();
+                result = false;
+                throw new IllegalArgumentException("wrong argument");
             }
-            return true;
-        }).forEach(line ->
-                values.put(line.substring(1, line.indexOf("=")), line.substring(line.indexOf("=") + 1))
-        );
+        }
+        return result;
+    }
+
+    private void parse(String[] args) throws IllegalArgumentException {
+        if (validate(args)) {
+            for (String line : args) {
+                values.put(line.substring(1, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
+            }
+        }
     }
 
     public static ArgsName of(String[] args) {
