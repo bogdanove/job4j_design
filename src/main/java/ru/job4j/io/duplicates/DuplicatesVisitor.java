@@ -10,6 +10,7 @@ import java.util.*;
 public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
     private Map<FileProperty, List<Path>> files = new HashMap<>();
+
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
         FileProperty search = new FileProperty(file.toFile().length(), file.toFile().getName());
@@ -20,8 +21,8 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
         }
         return super.visitFile(file, attrs);
     }
-    public Map<FileProperty, List<Path>> getFiles() {
-        return files;
-    }
 
+    public void getFiles() {
+        files.values().stream().filter(x -> x.size() > 1).forEach(list -> list.forEach(System.out::println));
+    }
 }
