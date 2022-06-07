@@ -15,27 +15,22 @@ public class ArgsName {
         return value;
     }
 
-    private boolean validate(String[] args) throws IllegalArgumentException {
-        boolean result = true;
+    private void validate(String[] args) throws IllegalArgumentException {
         if (args.length == 0) {
-            result = false;
             throw new IllegalArgumentException("Array is empty");
         }
         for (String x : args) {
             if (!x.contains("=") || !x.startsWith("-") || x.substring(1, x.indexOf("=")).length() == 0 || x.substring(x.indexOf("=") + 1).length() == 0) {
-                result = false;
                 throw new IllegalArgumentException("wrong argument");
             }
         }
-        return result;
     }
 
     private void parse(String[] args) throws IllegalArgumentException {
-        if (validate(args)) {
+        validate(args);
             for (String line : args) {
                 values.put(line.substring(1, line.indexOf("=")), line.substring(line.indexOf("=") + 1));
             }
-        }
     }
 
     public static ArgsName of(String[] args) {
