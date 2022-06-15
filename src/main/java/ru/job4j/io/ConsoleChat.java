@@ -12,6 +12,9 @@ public class ConsoleChat {
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
+    private static final String PAUSED_ON = "Paused";
+    private static final String PAUSED_OFF = "Let's go!";
+    private static final String SWITCH_OFF = "OFF";
     private final String path;
     private final String botAnswers;
 
@@ -32,30 +35,31 @@ public class ConsoleChat {
             line = in.nextLine();
             String answer = readPhrases().get(random.nextInt(readPhrases().size()));
             log.add(line);
-            if (line.equals(STOP)) {
-                System.out.println("Paused");
+            if (STOP.equals(line)) {
+                log.add(PAUSED_ON);
+                System.out.println(PAUSED_ON);
                 paused = true;
             }
-            if (line.equals(CONTINUE)) {
+            if (CONTINUE.equals(line)) {
                 paused = false;
-                System.out.println("Let's go!");
-                run();
+                log.add(PAUSED_OFF);
+                System.out.println(PAUSED_OFF);
             }
-            saveLog(log);
-            if (line.equals(OUT)) {
+            if (OUT.equals(line)) {
                 flag = false;
-                System.out.println("OFF");
+                log.add(SWITCH_OFF);
+                System.out.println(SWITCH_OFF);
             }
             if (!paused && flag) {
                 log.add(answer);
                 System.out.println(answer);
             }
+            saveLog(log);
         }
     }
 
     private List<String> readPhrases() {
         List<String> phrases = new ArrayList<>();
-        StringBuilder builder = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(botAnswers, Charset.forName("UTF-8")))) {
             phrases = br.lines().collect(Collectors.toList());
         } catch (IOException e) {
