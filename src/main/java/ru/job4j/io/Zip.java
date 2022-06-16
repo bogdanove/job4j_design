@@ -35,7 +35,7 @@ public class Zip {
 
     private static ArgsName validateArgs(String[] args) {
         ArgsName name = ArgsName.of(args);
-        if (args.length == 0 || name.get("d").isEmpty() || name.get("e").isEmpty() || name.get("o").isEmpty()) {
+        if (args.length != 3 && !name.get("d").startsWith(".") && !name.get("e").startsWith(".") && name.get("o").endsWith(".zip")) {
             throw new IllegalArgumentException();
         }
         return name;
