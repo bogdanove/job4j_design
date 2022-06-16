@@ -29,11 +29,12 @@ public class ConsoleChat {
         Scanner in = new Scanner(System.in);
         String line;
         List<String> log = new ArrayList();
+        List<String> answers = readPhrases();
         Random random = new Random();
         while (flag) {
             System.out.print("Input a question: ");
             line = in.nextLine();
-            String answer = readPhrases().get(random.nextInt(readPhrases().size()));
+            String answer = answers.get(random.nextInt(answers.size()));
             log.add(line);
             if (STOP.equals(line)) {
                 log.add(PAUSED_ON);
@@ -48,13 +49,13 @@ public class ConsoleChat {
             if (OUT.equals(line)) {
                 flag = false;
                 log.add(SWITCH_OFF);
+                saveLog(log);
                 System.out.println(SWITCH_OFF);
             }
             if (!paused && flag) {
                 log.add(answer);
                 System.out.println(answer);
             }
-            saveLog(log);
         }
     }
 
