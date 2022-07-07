@@ -27,4 +27,24 @@ public class Student {
                 + ", exam=" + Arrays.toString(exam)
                 + '}';
     }
+
+    public boolean isStudent() {
+        return isStudent;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public String[] getExam() {
+        return exam;
+    }
 }
