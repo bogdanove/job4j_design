@@ -26,58 +26,55 @@ public class TableEditor implements AutoCloseable {
                 properties.getProperty("password"));
     }
 
-    public void createTable(String tableName) throws Exception {
+    private void statementExecutor(String sql) throws Exception {
         try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "create table if not exists %s(%s, %s);",
-                    tableName,
-                    "id serial primary key",
-                    "name varchar(255)"
-            );
             statement.execute(sql);
         }
+    }
+
+    public void createTable(String tableName) throws Exception {
+        String sql = String.format(
+                "create table if not exists %s(%s, %s);",
+                tableName,
+                "id serial primary key",
+                "name varchar(255)"
+        );
+        statementExecutor(sql);
+
     }
 
     public void dropTable(String tableName) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "drop table %s;",
-                    tableName);
-            statement.execute(sql);
-        }
+        String sql = String.format(
+                "drop table %s;",
+                tableName);
+        statementExecutor(sql);
     }
 
     public void addColumn(String tableName, String columnName, String type) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "alter table %s add column %s %s;",
-                    tableName,
-                    columnName,
-                    type);
-            statement.execute(sql);
-        }
+        String sql = String.format(
+                "alter table %s add column %s %s;",
+                tableName,
+                columnName,
+                type);
+        statementExecutor(sql);
     }
 
     public void dropColumn(String tableName, String columnName) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "alter table %s drop column %s;",
-                    tableName,
-                    columnName);
-            statement.execute(sql);
-        }
+        String sql = String.format(
+                "alter table %s drop column %s;",
+                tableName,
+                columnName);
+        statementExecutor(sql);
     }
 
     public void renameColumn(String tableName, String columnName, String newColumnName) throws Exception {
-        try (Statement statement = connection.createStatement()) {
-            String sql = String.format(
-                    "alter table %s rename column %s to %s;",
-                    tableName,
-                    columnName,
-                    newColumnName
-            );
-            statement.execute(sql);
-        }
+        String sql = String.format(
+                "alter table %s rename column %s to %s;",
+                tableName,
+                columnName,
+                newColumnName
+        );
+        statementExecutor(sql);
     }
 
 
@@ -111,16 +108,21 @@ public class TableEditor implements AutoCloseable {
         Properties config = new Properties();
         try (InputStream in = TableEditor.class.getClassLoader().getResourceAsStream("app.properties")) {
             config.load(in);
-            TableEditor editor = new TableEditor(config);
-            editor.createTable("test");
-            System.out.println(getTableScheme(editor.connection, "test"));
-            editor.addColumn("test", "description", "varchar(255)");
-            System.out.println(getTableScheme(editor.connection, "test"));
-            editor.renameColumn("test", "description", "confirmation");
-            System.out.println(getTableScheme(editor.connection, "test"));
-            editor.dropColumn("test", "confirmation");
-            System.out.println(getTableScheme(editor.connection, "test"));
-            editor.dropTable("test");
+            try (TableEditor editor = new TableEditor(config)) {
+                editor.createTable("test");
+                System.out.println(
+                        getTableScheme(editor.connection, "test"));
+                editor.addColumn("test", "description", "varchar(255)");
+                System.out.println(
+                        getTableScheme(editor.connection, "test"));
+                editor.renameColumn("test", "description", "confirmation");
+                System.out.println(
+                        getTableScheme(editor.connection, "test"));
+                editor.dropColumn("test", "confirmation");
+                System.out.println(
+                        getTableScheme(editor.connection, "test"));
+                editor.dropTable("test");
+            }
         }
     }
 }
