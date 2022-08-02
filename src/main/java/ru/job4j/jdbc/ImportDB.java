@@ -19,18 +19,23 @@ public class ImportDB {
         this.dump = dump;
     }
 
-    public List<User> load() throws IOException {
+    public List<User> load() {
         List<User> users = new ArrayList<>();
         try (BufferedReader rd = new BufferedReader(new FileReader(dump))) {
-            rd.lines().forEach(line ->
-                    users.add(
-                            new User(
-                                    line.split(";")[0],
-                                    line.split(";")[1]
-                            )
-                    )
+            rd.lines().forEach(line -> {
+                        if (line.split(";").length != 2 || line.split(";")[0].isEmpty() || line.split(";")[1].isEmpty()) {
+                            throw new IllegalArgumentException("Wrong data!");
+                        }
+                        users.add(
+                                new User(
+                                        line.split(";")[0],
+                                        line.split(";")[1]
+                                )
+                        );
+                    }
             );
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return users;
     }
