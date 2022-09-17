@@ -45,8 +45,4 @@ public class Post {
         this.comments = comments;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }
