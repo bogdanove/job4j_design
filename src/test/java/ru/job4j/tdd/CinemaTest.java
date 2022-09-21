@@ -50,6 +50,17 @@ public class CinemaTest {
             cinema.buy(account, 1, 1, date);
         });
     }
+
+    @Test
+    public void whenPlaceIsBusy() {
+        Account account = new AccountCinema();
+        Cinema cinema = new Cinema3D();
+        Calendar date = Calendar.getInstance();
+        assertThrows(IllegalArgumentException.class, () -> {
+            cinema.buy(account, 1, 3, date);
+        });
+    }
+
     @Test
     public void whenNotFind() {
         Cinema cinema = new Cinema3D();
