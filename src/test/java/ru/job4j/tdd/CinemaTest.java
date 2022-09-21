@@ -1,5 +1,6 @@
 package ru.job4j.tdd;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.util.Calendar;
 import java.util.List;
 
+@Ignore
 @Disabled
 public class CinemaTest {
 
