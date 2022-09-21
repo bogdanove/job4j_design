@@ -5,21 +5,19 @@ import java.util.List;
 
 public class MaxMin {
     public <T> T max(List<T> value, Comparator<T> comparator) {
-        T max = value.get(0);
-        for (T t : value) {
-            if (comparator.compare(t, max) > 0) {
-                max = t;
-            }
-        }
-        return max;
+        return comparing(value, comparator);
     }
     public <T> T min(List<T> value, Comparator<T> comparator) {
-        T min = value.get(0);
+        return comparing(value, comparator.reversed());
+    }
+
+    private <T> T comparing(List<T> value, Comparator<T> comparator) {
+        T temp = value.get(0);
         for (T t : value) {
-            if (comparator.compare(t, min) < 0) {
-                min = t;
+            if (comparator.compare(t, temp) > 0) {
+                temp = t;
             }
         }
-        return min;
+        return temp;
     }
 }
