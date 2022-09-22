@@ -13,6 +13,10 @@ public class Emulator {
                 Введите любое другое число для выхода.
             """;
 
+    private static final int DIR_CACHE = 1;
+    private static final int FILE_NAME_CACHE = 2;
+    private static final int GET_CACHE = 3;
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         DirFileCache fileCache = null;
@@ -22,15 +26,15 @@ public class Emulator {
             System.out.println(MENU);
             System.out.println("Выберите меню: ");
             int userChoice = Integer.parseInt(scanner.nextLine());
-            if (1 == userChoice) {
+            if (DIR_CACHE == userChoice) {
                 System.out.println("Укажите директорию: ");
                 String dir = scanner.nextLine();
                 fileCache = new DirFileCache(dir);
-            } else if (2 == userChoice) {
+            } else if (FILE_NAME_CACHE == userChoice) {
                 System.out.println("Укажите имя файла: ");
                 fileName = scanner.nextLine();
                 fileCache.put(fileName, fileName);
-            } else if (3 == userChoice) {
+            } else if (GET_CACHE == userChoice) {
                 System.out.println("Укажите имя файла: ");
                 String key = scanner.nextLine();
                 System.out.println(fileCache.get(key));
