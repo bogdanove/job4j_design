@@ -12,16 +12,14 @@ public class MaxMin {
     }
 
     private <T> T comparing(List<T> value, Comparator<T> comparator) {
-        T temp;
-        if (!value.isEmpty()) {
-            temp = value.get(0);
-            for (T t : value) {
-                if (comparator.compare(t, temp) > 0) {
-                    temp = t;
-                }
+        if (value.isEmpty()) {
+            return null;
+        }
+        T temp = value.get(0);
+        for (T t : value) {
+            if (comparator.compare(t, temp) > 0) {
+                temp = t;
             }
-        } else {
-            temp = null;
         }
         return temp;
     }
