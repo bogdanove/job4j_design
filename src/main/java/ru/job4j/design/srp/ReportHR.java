@@ -18,13 +18,13 @@ public class ReportHR implements Report {
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
         text.append("Name; Salary;")
-                .append(System.lineSeparator());
+                .append(Utils.SEPARATOR);
         var list = store.findBy(filter);
         list.sort(comparator);
         for (Employee employee : list) {
             text.append(employee.getName()).append(";")
                     .append(employee.getSalary()).append(";")
-                    .append(System.lineSeparator());
+                    .append(Utils.SEPARATOR);
         }
         return text.toString();
     }

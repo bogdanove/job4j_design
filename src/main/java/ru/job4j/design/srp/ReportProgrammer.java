@@ -1,10 +1,10 @@
 package ru.job4j.design.srp;
 
-import java.text.SimpleDateFormat;
 import java.util.function.Predicate;
 
 public class ReportProgrammer implements Report {
-    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd:MM:yyyy HH:mm");
+
+
     private Store store;
 
     public ReportProgrammer(Store store) {
@@ -14,17 +14,29 @@ public class ReportProgrammer implements Report {
     @Override
     public String generate(Predicate<Employee> filter) {
         StringBuilder text = new StringBuilder();
+        text.append("<!DOCTYPE HTML>").append(Utils.SEPARATOR)
+                .append("<html>").append(Utils.SEPARATOR)
+                .append("<head>").append(Utils.SEPARATOR)
+                .append("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">").append(Utils.SEPARATOR)
+                .append("<title>Report emploees</title>").append(Utils.SEPARATOR)
+                .append("</head>").append(Utils.SEPARATOR)
+                .append("<body>").append(Utils.SEPARATOR)
+                .append("<table>").append(Utils.SEPARATOR)
+                .append("<tr>").append(Utils.SEPARATOR)
+                .append("<th>Name</th><th>Hired</th><th>Fired</th><th>Salary</th>").append(Utils.SEPARATOR)
+                .append("</tr>").append(Utils.SEPARATOR);
         for (Employee employee : store.findBy(filter)) {
-            text
-                    .append("Name: ").append(employee.getName()).append(";")
-                    .append(System.lineSeparator())
-                    .append("Hired: ").append(DATE_FORMAT.format(employee.getHired().getTime())).append(";")
-                    .append(System.lineSeparator())
-                    .append("Fired: ").append(DATE_FORMAT.format(employee.getFired().getTime())).append(";")
-                    .append(System.lineSeparator())
-                    .append("Salary: ").append(employee.getSalary()).append(";")
-                    .append(System.lineSeparator());
+            text.append("<tr>").append(Utils.SEPARATOR)
+                    .append("<td>").append(employee.getName()).append(";").append("</td>")
+                    .append("<td>").append(Utils.DATE_FORMAT.format(employee.getHired().getTime())).append("</td>")
+                    .append("<td>").append(Utils.DATE_FORMAT.format(employee.getFired().getTime())).append("</td>")
+                    .append("<td>").append(employee.getSalary()).append("</td>")
+                    .append("</tr>")
+                    .append(Utils.SEPARATOR);
         }
+        text.append("</table>").append(Utils.SEPARATOR)
+                .append("</body>").append(Utils.SEPARATOR)
+                .append("</html>").append(Utils.SEPARATOR);
         return text.toString();
     }
 }

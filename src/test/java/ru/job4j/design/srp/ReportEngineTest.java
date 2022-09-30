@@ -3,11 +3,9 @@ package ru.job4j.design.srp;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
-
 import java.util.Calendar;
 
-import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ReportEngineTest {
 
@@ -20,12 +18,12 @@ public class ReportEngineTest {
         Report engine = new ReportEngine(store);
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
-                .append(System.lineSeparator())
+                .append(Utils.SEPARATOR)
                 .append(worker.getName()).append(";")
-                .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
-                .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
+                .append(Utils.DATE_FORMAT.format(worker.getHired().getTime())).append(";")
+                .append(Utils.DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator());
+                .append(Utils.SEPARATOR);
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 }

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static ru.job4j.design.srp.ReportEngine.DATE_FORMAT;
 
 class ReportAccountantTest {
 
@@ -18,12 +17,12 @@ class ReportAccountantTest {
         Report engine = new ReportAccountant(store, 0.6, "$");
         StringBuilder expect = new StringBuilder()
                 .append("Name; Hired; Fired; Salary;")
-                .append(System.lineSeparator())
+                .append(Utils.SEPARATOR)
                 .append(worker.getName()).append(";")
-                .append(DATE_FORMAT.format(worker.getHired().getTime())).append(";")
-                .append(DATE_FORMAT.format(worker.getFired().getTime())).append(";")
+                .append(Utils.DATE_FORMAT.format(worker.getHired().getTime())).append(";")
+                .append(Utils.DATE_FORMAT.format(worker.getFired().getTime())).append(";")
                 .append(worker.getSalary() * 0.6).append("$").append(";")
-                .append(System.lineSeparator());
+                .append(Utils.SEPARATOR);
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 }

@@ -20,13 +20,13 @@ class ReportHRTest {
         Report engine = new ReportHR(store, Comparator.comparing(Employee::getSalary).reversed());
         StringBuilder expect = new StringBuilder()
                 .append("Name; Salary;")
-                .append(System.lineSeparator())
+                .append(Utils.SEPARATOR)
                 .append(worker.getName()).append(";")
                 .append(worker.getSalary()).append(";")
-                .append(System.lineSeparator())
+                .append(Utils.SEPARATOR)
                 .append(worker1.getName()).append(";")
                 .append(worker1.getSalary()).append(";")
-                .append(System.lineSeparator());
+                .append(Utils.SEPARATOR);
         assertThat(engine.generate(em -> true)).isEqualTo(expect.toString());
     }
 }
