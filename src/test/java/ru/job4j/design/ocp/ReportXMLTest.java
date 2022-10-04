@@ -1,14 +1,17 @@
 package ru.job4j.design.ocp;
 
-import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import ru.job4j.design.srp.*;
+import ru.job4j.design.srp.Employee;
+import ru.job4j.design.srp.MemStore;
+import ru.job4j.design.srp.Report;
+import ru.job4j.design.srp.Utils;
 
 import java.util.Calendar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Ignore
+@Disabled
 class ReportXMLTest {
 
     @Test
