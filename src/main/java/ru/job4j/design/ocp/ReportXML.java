@@ -13,30 +13,23 @@ import java.io.StringWriter;
 import java.util.function.Predicate;
 
 public class ReportXML implements Report {
-
     private Store store;
-
-    public ReportXML(Store store) {
+    private JAXBContext context;
+    private Marshaller marshaller;
+    public ReportXML(Store store) throws JAXBException {
         this.store = store;
+        context = JAXBContext.newInstance(Employees.class);
+        marshaller = context.createMarshaller();
     }
-
     @Override
     public String generate(Predicate<Employee> filter) {
         String xml = "";
         try (StringWriter writer = new StringWriter()) {
-            createMarshaller().marshal(new Employees(store.findBy(filter)), writer);
+            marshaller.marshal(new Employees(store.findBy(filter)), writer);
             xml = writer.getBuffer().toString();
-            System.out.println(xml);
         } catch (JAXBException | IOException e) {
             e.printStackTrace();
         }
         return xml;
-    }
-
-    private Marshaller createMarshaller() throws JAXBException {
-        JAXBContext context = JAXBContext.newInstance(Employees.class);
-        Marshaller marshaller = context.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        return marshaller;
     }
 }
