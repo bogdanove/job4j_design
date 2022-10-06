@@ -2,10 +2,13 @@ package ru.job4j.design.ocp;
 
 import org.junit.jupiter.api.Test;
 import ru.job4j.design.srp.*;
+
 import javax.xml.bind.JAXBException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 class ReportXMLTest {
     @Test
     void whenXmlGenerated() throws JAXBException {
