@@ -1,4 +1,4 @@
-package ru.job4j.ood.ocp;
+package ru.job4j.oodtheory.ocp;
 
 import java.util.ArrayList;
 import java.util.List;
