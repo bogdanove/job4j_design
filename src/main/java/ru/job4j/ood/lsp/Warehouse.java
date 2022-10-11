@@ -1,14 +1,10 @@
 package ru.job4j.ood.lsp;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class Warehouse implements Store {
+public class Warehouse extends AbstractStore {
 
     private final static long STOP = 25;
-
-    private List<Food> store = new ArrayList<>();
 
     private ExpirationChecker<Calendar> checker;
 
@@ -24,10 +20,5 @@ public class Warehouse implements Store {
             result = store.add(food);
         }
         return result;
-    }
-
-    @Override
-    public List<Food> getAll() {
-        return new ArrayList<>(store);
     }
 }

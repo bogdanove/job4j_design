@@ -1,12 +1,8 @@
 package ru.job4j.ood.lsp;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
-public class Trash implements Store {
-
-    private final List<Food> store = new ArrayList<>();
+public class Trash extends AbstractStore {
 
     private ExpirationChecker<Calendar> checker;
 
@@ -21,10 +17,5 @@ public class Trash implements Store {
             result = store.add(food);
         }
         return result;
-    }
-
-    @Override
-    public List<Food> getAll() {
-        return store;
     }
 }
