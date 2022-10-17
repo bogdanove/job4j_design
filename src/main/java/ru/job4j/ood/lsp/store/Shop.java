@@ -1,4 +1,7 @@
-package ru.job4j.ood.lsp;
+package ru.job4j.ood.lsp.store;
+
+import ru.job4j.ood.lsp.util.ExpirationChecker;
+import ru.job4j.ood.lsp.food.Food;
 
 import java.util.Calendar;
 
@@ -10,10 +13,10 @@ public class Shop extends AbstractStore {
 
     private final static double DISC = 0.7;
 
-    private ExpirationChecker<Calendar> checker;
+    private final ExpirationChecker<Calendar> checker;
 
 
-    public Shop(ExpirationChecker checker) {
+    public Shop(ExpirationChecker<Calendar> checker) {
         this.checker = checker;
     }
 

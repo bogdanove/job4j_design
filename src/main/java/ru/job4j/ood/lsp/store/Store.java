@@ -1,4 +1,6 @@
-package ru.job4j.ood.lsp;
+package ru.job4j.ood.lsp.store;
+
+import ru.job4j.ood.lsp.food.Food;
 
 import java.util.List;
 
