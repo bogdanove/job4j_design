@@ -26,18 +26,22 @@ class ControlQualityTest {
         List<Store> stores = List.of(trash, wh, shop);
         ControlQuality controlQuality = new ControlQuality(stores);
         Calendar createDate = Calendar.getInstance();
-        createDate.set(2022, Calendar.SEPTEMBER, 10);
+        createDate.set(createDate.get(Calendar.YEAR),
+                createDate.get(Calendar.MONTH),
+                createDate.get(Calendar.DAY_OF_MONTH) - 4, 10, 0);
         Calendar expiryDate = Calendar.getInstance();
-        expiryDate.set(2022, Calendar.OCTOBER, 3);
+        expiryDate.set(expiryDate.get(Calendar.YEAR),
+                expiryDate.get(Calendar.MONTH),
+                expiryDate.get(Calendar.DAY_OF_MONTH) - 1, 10, 0);
         Food bread = new Bread(
-                "breed",
+                "bread",
                 expiryDate,
                 createDate,
                 100,
                 1
         );
         controlQuality.doControl(bread);
-        assertThat(trash.getAll().get(0)).isEqualTo(bread);
+        assertThat(trash.getAll()).contains(bread);
         assertThat(wh.getAll()).isEmpty();
         assertThat(shop.getAll()).isEmpty();
     }

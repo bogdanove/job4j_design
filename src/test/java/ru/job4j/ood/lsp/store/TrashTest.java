@@ -18,18 +18,22 @@ class TrashTest {
         ExpirationChecker<Calendar> checker = new CalendarExpirationChecker();
         Store trash = new Trash(checker);
         Calendar createDate = Calendar.getInstance();
-        createDate.set(2022, Calendar.SEPTEMBER, 10);
+        createDate.set(createDate.get(Calendar.YEAR),
+                createDate.get(Calendar.MONTH),
+                createDate.get(Calendar.DAY_OF_MONTH) - 4, 10, 0);
         Calendar expiryDate = Calendar.getInstance();
-        expiryDate.set(2022, Calendar.OCTOBER, 3);
+        expiryDate.set(expiryDate.get(Calendar.YEAR),
+                expiryDate.get(Calendar.MONTH),
+                expiryDate.get(Calendar.DAY_OF_MONTH) - 1, 10, 0);
         Food bread = new Bread(
-                "breed",
+                "bread",
                 expiryDate,
                 createDate,
                 100,
                 1
         );
         trash.add(bread);
-        assertThat(trash.getAll().get(0)).isEqualTo(bread);
+        assertThat(trash.getAll()).contains(bread);
     }
 
     @Test
@@ -37,9 +41,13 @@ class TrashTest {
         ExpirationChecker<Calendar> checker = new CalendarExpirationChecker();
         Store trash = new Trash(checker);
         Calendar createDate = Calendar.getInstance();
-        createDate.set(2022, Calendar.SEPTEMBER, 19);
+        createDate.set(createDate.get(Calendar.YEAR),
+                createDate.get(Calendar.MONTH),
+                createDate.get(Calendar.DAY_OF_MONTH) - 4, 10, 0);
         Calendar expiryDate = Calendar.getInstance();
-        expiryDate.set(2022, Calendar.DECEMBER, 31);
+        expiryDate.set(expiryDate.get(Calendar.YEAR),
+                expiryDate.get(Calendar.MONTH),
+                expiryDate.get(Calendar.DAY_OF_MONTH) + 1, 10, 0);
         Food milk = new Milk(
                 "milk",
                 expiryDate,
