@@ -6,9 +6,15 @@ public class CarParking implements Parking {
 
     protected final Car[] truckParking;
 
-    public CarParking(Car[] passengerParking, Car[] truckParking) {
-        this.passengerParking = passengerParking;
-        this.truckParking = truckParking;
+    private final int passengerPlace;
+
+    private final int truckPlace;
+
+    public CarParking(int passengerPlace, int truckPlace) {
+        this.passengerPlace = passengerPlace;
+        this.truckPlace = truckPlace;
+        this.passengerParking = new Car[passengerPlace];
+        this.truckParking = new Car[truckPlace];
     }
 
     @Override
