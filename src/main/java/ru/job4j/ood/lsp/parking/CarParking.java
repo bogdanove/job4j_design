@@ -20,7 +20,7 @@ public class CarParking implements Parking {
     public boolean add(Car car) {
         var result = false;
         if (car.getSize() == PassengerCar.PASSENGER_SIZE && passengerParking.size() < passengerPlace) {
-            result = passengerParking.add(car);
+            return passengerParking.add(car);
         }
         if (car.getSize() > PassengerCar.PASSENGER_SIZE) {
             if (truckParking.size() < truckPlace) {
