@@ -1,0 +1,67 @@
+
+public class PasswordReminder {
+
+/*
+Нарушение принципа DIP в том, что класс PasswordReminder зависит от класса MySQLConnection,
+необходимо выделить интерфейс подключения к базе, вынести в абстракцию.
+*/
+
+    private MySQLConnection dbConnection;
+
+    public void construct(MySQLConnection dbConnection) {
+        this.dbConnection = dbConnection;
+    }
+}
+
+==================================================================================================
+
+public class Reporter {
+
+/*
+Нарушение принципа DIP в том, что объект Reporter зависит не от абстракций,
+а от конкретных объектов ReportBuilder и EmailReportSender.
+Можно сказать, что он "сцеплен" с этими классами. Это и объясняет его хрупкость при изменениях в системе
+*/
+
+     public void SendReports() {
+        var reportBuilder = new ReportBuilder();
+        IList<Report> reports = reportBuilder.CreateReports();
+        if (reports.Count == 0)
+            throw new NoReportsException();
+        var reportSender = new EmailReportSender();
+        foreach (Report report in reports)
+        {
+            reportSender.Send(report);
+        }
+    }
+}
+
+==================================================================================================
+
+class Book {
+
+/*
+Нарушение принципа DIP в том, что класс Book, представляющий книгу,
+использует для печати класс ConsolePrinter. При подобном определении класс Book зависит от класса ConsolePrinter.
+Более того мы жестко определили, что печатать книгу можно только на консоли с помощью класса ConsolePrinter
+*/
+
+        private String text;
+        private ConsolePrinter printer;
+
+        public Book(String text, ConsolePrinter printer) {
+            this.text = text;
+            this.printer = printer;
+        }
+
+        public void print() {
+            printer.print(text);
+        }
+}
+
+class ConsolePrinter {
+
+        public void print(String text) {
+            System.out.println(text);
+        }
+}
