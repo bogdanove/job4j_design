@@ -18,18 +18,17 @@ public class CarParking implements Parking {
 
     @Override
     public boolean add(Car car) {
-        var result = false;
         if (car.getSize() == PassengerCar.PASSENGER_SIZE && passengerParking.size() < passengerPlace) {
             return passengerParking.add(car);
         }
         if (car.getSize() > PassengerCar.PASSENGER_SIZE) {
             if (truckParking.size() < truckPlace) {
-                result = truckParking.add(car);
+                return truckParking.add(car);
             } else if (passengerParking.size() < passengerPlace
                     && car.getSize() <= (passengerPlace - passengerParking.size())) {
-                result = passengerParking.add(car);
+                return passengerParking.add(car);
             }
         }
-        return result;
+        return false;
     }
 }
