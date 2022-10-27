@@ -27,8 +27,7 @@ class SimpleMenuPrinterTest {
         menu.add("Сходить в магазин", "Купить продукты", STUB_ACTION);
         StringBuilder text = new StringBuilder();
         text.append("1.Сходить в магазин").append(System.lineSeparator())
-                .append("  ").append("1.1.Купить продукты").append(System.lineSeparator())
-                .append(System.lineSeparator());
+                .append("  ").append("1.1.Купить продукты").append(System.lineSeparator());
         printer.print(menu);
         assertThat(text.toString())
                 .isEqualTo(output.toString());
