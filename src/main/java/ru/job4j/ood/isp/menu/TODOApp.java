@@ -5,7 +5,15 @@ import java.util.Scanner;
 public class TODOApp {
 
     public static final ActionDelegate STUB_ACTION = System.out::println;
-    private static final String PRINT = "печать";
+
+    private static final int ROOT = 1;
+    private static final int CHILD = 2;
+    private static final int PRINT = 3;
+    private static final String DESCRIPTION = """
+            Что бы добавть корневую задачу, введите: 1
+            Что бы добавить подзадачу, введите: 2
+            Что бы вывести список задач - введите: 3
+            """;
 
     public static void main(String[] args) {
         Menu menu = new SimpleMenu();
@@ -14,31 +22,26 @@ public class TODOApp {
         Scanner in = new Scanner(System.in);
         String taskName;
         String parent = null;
-        System.out.println("Что бы добавть корневую задачу, просто введите ее");
-        System.out.println("Что бы добавить подзадачу, сначала введите название корневой задачи");
-        System.out.println("Что бы вывести список задач - введите: печать");
         while (flag) {
-            if (parent == null) {
+            System.out.println(DESCRIPTION);
+            System.out.print("Выберите пункт меню: ");
+            int userChoice = Integer.parseInt(in.nextLine());
+            if (ROOT == userChoice) {
                 System.out.print("Введите задачу: ");
-            } else {
-                System.out.print("Введите подзадачу: ");
-            }
-            taskName = in.nextLine();
-            if (PRINT.equals(taskName)) {
-                flag = false;
-                printer.print(menu);
-            }
-            var current = menu.select(taskName);
-            if (current.isEmpty() && parent == null) {
+                taskName = in.nextLine();
                 menu.add(parent, taskName, STUB_ACTION);
             }
-            if (current.isPresent()) {
-                parent = current.get().getName();
-                System.out.printf("Введена корневая задача: %s%n", parent);
-            }
-            if (current.isEmpty() && parent != null) {
+            if (CHILD == userChoice) {
+                System.out.print("Введите кореневую задачу: ");
+                parent = in.nextLine();
+                System.out.print("Введите подзадачу: ");
+                taskName = in.nextLine();
                 menu.add(parent, taskName, STUB_ACTION);
                 parent = null;
+            }
+            if (PRINT == userChoice) {
+                flag = false;
+                printer.print(menu);
             }
         }
     }
