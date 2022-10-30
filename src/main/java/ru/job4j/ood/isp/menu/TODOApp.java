@@ -9,10 +9,12 @@ public class TODOApp {
     private static final int ROOT = 1;
     private static final int CHILD = 2;
     private static final int PRINT = 3;
+    private static final int EXIT = 4;
     private static final String DESCRIPTION = """
-            Что бы добавть корневую задачу, введите: 1
-            Что бы добавить подзадачу, введите: 2
+            Что бы добавть корневую задачу - введите: 1
+            Что бы добавить подзадачу - введите: 2
             Что бы вывести список задач - введите: 3
+            Для завершения работы - введите: 4
             """;
 
     public static void main(String[] args) {
@@ -40,8 +42,10 @@ public class TODOApp {
                 parent = null;
             }
             if (PRINT == userChoice) {
-                flag = false;
                 printer.print(menu);
+            }
+            if (EXIT == userChoice) {
+                flag = false;
             }
         }
     }
